@@ -70,6 +70,10 @@ crashlytics-build.properties
 # End of https://www.gitignore.io/api/unity
 
 
-# Ignore all assets that imported from AssetStore
+# Ignore all assets that imported from AssetStore, Booth, GitHub and others.
+/[Aa]ssets/_TerrainAutoUpgrade/
+/[Aa]ssets/Booth/
+/[Aa]ssets/Plugins/RootMotion/
 /[Aa]ssets/SteamVR/
-/[As]ssets/SteamVR_Resources/
+/[Aa]ssets/SteamVR_Resources/
+/[Aa]ssets/Toon/*
