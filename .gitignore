@@ -71,4 +71,5 @@ crashlytics-build.properties
 
 
 # Ignore all assets that imported from AssetStore
-/[Aa]ssets/*
+/[Aa]ssets/SteamVR/
+/[As]ssets/SteamVR_Resources/
