@@ -1,6 +1,4 @@
-﻿using HTC.UnityPlugin.StereoRendering;
-
-using RootMotion.FinalIK;
+﻿using RootMotion.FinalIK;
 
 using UnityEngine;
 
