@@ -72,10 +72,13 @@ crashlytics-build.properties
 
 # Ignore all assets that imported from AssetStore, Booth, GitHub and others.
 /[Aa]ssets/_TerrainAutoUpgrade/
+/[Aa]ssets/arktoon Shaders/
 /[Aa]ssets/Booth/
 /[Aa]ssets/DynamicBone/
 /[Aa]ssets/HTC.UnityPlugin/
+/[Aa]ssets/MeshBaker/
 /[Aa]ssets/Plugins/RootMotion/
+/[Aa]ssets/Shapell/
 /[Aa]ssets/SteamVR/
 /[Aa]ssets/SteamVR_Resources/
 /[Aa]ssets/Toon/*
