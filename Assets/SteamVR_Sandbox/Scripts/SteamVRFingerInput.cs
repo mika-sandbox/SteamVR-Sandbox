@@ -53,9 +53,6 @@ namespace SteamVR_Sandbox.Scripts
         [Range(0f, 1f)]
         private float Stretch3Weight;
 
-        // Start is called before the first frame update
-        private void Start() { }
-
         // Update is called once per frame
         private void Update()
         {
@@ -122,7 +119,7 @@ namespace SteamVR_Sandbox.Scripts
                 }
 
                 for (var i = 0; i < 3; i++)
-                    humanPose.muscles[(int) indexes[i]] = Mathf.Lerp(-.75f, 1f, fingerCurl) * weights[i] * -1;
+                    humanPose.muscles[(int) indexes[i]] = Mathf.Lerp(-.75f, 1f, fingerCurl * weights[i]) * -1;
 
                 handler.SetHumanPose(ref humanPose);
             }
