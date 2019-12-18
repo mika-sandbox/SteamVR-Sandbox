@@ -12,7 +12,7 @@ namespace SteamVR_Sandbox.Scripts
         private bool _isFixed;
 
         [SerializeField]
-        private GameObject Model;
+        private ControllerSide Side;
 
         [SerializeField]
         private GameObject Tracker;
@@ -28,33 +28,9 @@ namespace SteamVR_Sandbox.Scripts
             if (_isFixed)
                 return;
 
-            var model = Model.GetComponent<SteamVR_RenderModel>();
-            if (model == null)
-                return;
-
-            var controller = model.renderModelName;
-            if (string.IsNullOrWhiteSpace(controller))
-                return;
-
-            var position = Vector3.zero;
-            var rotation = Quaternion.identity;
-
-            switch (controller)
-            {
-                case "oculus_rifts_controller_right":
-                    position = ControllerDefinition.OculusTouch.RightHandPosition;
-                    rotation = ControllerDefinition.OculusTouch.RightHandRotation;
-
-                    break;
-
-                case "oculus_rifts_controller_left":
-                    position = ControllerDefinition.OculusTouch.LeftHandPosition;
-                    rotation = ControllerDefinition.OculusTouch.LeftHandRotation;
-                    break;
-            }
-
-            Tracker.transform.localPosition = position;
-            Tracker.transform.localRotation = rotation;
+            var controller = SteamVR.instance.GetStringProperty(ETrackedDeviceProperty.Prop_ControllerType_String);
+            Tracker.transform.localPosition = ControllerDefinition.GetControllerPositionOffset(controller, Side);
+            Tracker.transform.localRotation = ControllerDefinition.GetControllerRotationOffset(controller, Side);
 
             _isFixed = true;
         }
