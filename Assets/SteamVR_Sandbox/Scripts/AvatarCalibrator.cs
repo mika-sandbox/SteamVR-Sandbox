@@ -27,11 +27,9 @@ namespace SteamVR_Sandbox.Scripts
 
             var avatarHandDistance = Vector3.Distance(IK.references.leftHand.position, IK.references.rightHand.position);
             var playerHandDistance = PlayerHeight * PlayerHandDistanceByHeight;
-            var handTrackerScale = playerHandDistance / avatarHandDistance;
+            var worldScale = playerHandDistance / avatarHandDistance;
 
-            World.transform.localScale = new Vector3(handTrackerScale, handTrackerScale, handTrackerScale);
-
-            // World.transform.localScale *= handTrackerScale;
+            World.transform.localScale = Vector3.one * worldScale;
         }
 
         // LateUpdate is called once per frame
@@ -41,12 +39,6 @@ namespace SteamVR_Sandbox.Scripts
 
         [SerializeField]
         private GameObject HeadTracker;
-
-        [SerializeField]
-        private GameObject LeftHandTracker;
-
-        [SerializeField]
-        private GameObject RightHandTracker;
 
         [SerializeField]
         private GameObject World;
