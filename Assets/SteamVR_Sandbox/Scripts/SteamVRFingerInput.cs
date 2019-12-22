@@ -54,7 +54,7 @@ namespace SteamVR_Sandbox.Scripts
         private float Stretch3Weight;
 
         // Update is called once per frame
-        private void Update()
+        private void LateUpdate()
         {
             using (var handler = new HumanPoseHandler(Animator.avatar, Animator.transform))
             {
