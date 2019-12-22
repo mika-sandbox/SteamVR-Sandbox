@@ -43,7 +43,7 @@ namespace SteamVR_Sandbox.Models
                 case "indexhmd":
                     return GetControllerPositionOffset(IndexController, side);
 
-                case "oculus_touch":
+                case "rift":
                     return GetControllerPositionOffset(OculusTouch, side);
 
                 default:
@@ -58,7 +58,7 @@ namespace SteamVR_Sandbox.Models
                 case "indexhmd":
                     return GetControllerRotationOffset(IndexController, side);
 
-                case "oculus_touch":
+                case "rift":
                     return GetControllerRotationOffset(OculusTouch, side);
 
                 default:
