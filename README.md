@@ -19,7 +19,8 @@ Sandbox repository for SteamVR.
 
 ## Scenes
 
-| Scene Name          | Description                          |
-| ------------------- | ------------------------------------ |
-| `VRMirror`          | Mirror in VR World                   |
-| `AvatarCalibration` | Calibrate VR Avatar by Player Height |
+| Scene Name                      | Description                                      |
+| ------------------------------- | ------------------------------------------------ |
+| `VRMirror`                      | Mirror in VR World                               |
+| `AvatarCalibration`             | Calibrate VR Avatar by Player Height             |
+| `IndexControllerFingerTracking` | Finger Tracking by Valve Index Controller inputs |
