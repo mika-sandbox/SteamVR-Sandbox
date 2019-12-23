@@ -11,10 +11,10 @@ namespace SteamVR_Sandbox.Scripts
     public class AvatarAnimator : MonoBehaviour
     {
         [SerializeField]
-        private List<AvatarAnimation> AvatarAnimations;
+        private Animator Animator;
 
         [SerializeField]
-        private Animator Animator;
+        private List<AvatarAnimation> AvatarAnimations;
 
         [SerializeField]
         private SteamVR_Action_Skeleton Skeleton;
