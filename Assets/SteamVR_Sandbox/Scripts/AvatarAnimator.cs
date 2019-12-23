@@ -11,7 +11,7 @@ namespace SteamVR_Sandbox.Scripts
     public class AvatarAnimator : MonoBehaviour
     {
         [SerializeField]
-        private List<AnimationOverride> AnimationOverrides;
+        private List<AvatarAnimation> AvatarAnimations;
 
         [SerializeField]
         private Animator Animator;
@@ -25,7 +25,7 @@ namespace SteamVR_Sandbox.Scripts
             if (Animator == null || Skeleton == null)
                 return;
 
-            foreach (var animationOverride in AnimationOverrides) animationOverride.OnUpdate(Animator, Skeleton);
+            foreach (var animationOverride in AvatarAnimations) animationOverride.OnUpdate(Animator, Skeleton);
         }
     }
 }

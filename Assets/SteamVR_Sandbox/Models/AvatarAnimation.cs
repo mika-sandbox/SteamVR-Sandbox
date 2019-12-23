@@ -7,7 +7,7 @@ using Valve.VR;
 namespace SteamVR_Sandbox.Models
 {
     [Serializable]
-    public class AnimationOverride
+    public class AvatarAnimation
     {
         [SerializeField]
         private State AnimationState;
