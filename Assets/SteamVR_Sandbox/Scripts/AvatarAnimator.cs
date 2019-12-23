@@ -25,7 +25,7 @@ namespace SteamVR_Sandbox.Scripts
             if (Animator == null || Skeleton == null)
                 return;
 
-            foreach (var animationOverride in AvatarAnimations) animationOverride.OnUpdate(Animator, Skeleton);
+            foreach (var avatarAnimation in AvatarAnimations) avatarAnimation.OnUpdate(Animator, Skeleton);
         }
     }
 }
