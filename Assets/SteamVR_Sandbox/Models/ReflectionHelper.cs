@@ -1,5 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
+using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace SteamVR_Sandbox.Models
 {
@@ -7,21 +9,37 @@ namespace SteamVR_Sandbox.Models
     {
         public static T GetEnumValue<T>(string key) where T : Enum
         {
-            if (EnumCache<T>.Value.ContainsKey(key))
-                return EnumCache<T>.Value[key];
+            if (Caches<T>.Values.ContainsKey(key))
+                return (T) Caches<T>.Values[key];
 
             var value = (T) Enum.Parse(typeof(T), key);
-            EnumCache<T>.Value.Add(key, value);
+            Caches<T>.Values.Add(key, value);
+
             return value;
         }
 
-        private static class EnumCache<T>
+        public static string GetEnumMemberValue<T>(this T @enum) where T : Enum
         {
-            public static Dictionary<string, T> Value { get; }
+            var key = Enum.GetName(typeof(T), @enum);
+            if (string.IsNullOrWhiteSpace(key))
+                throw new ArgumentNullException();
 
-            static EnumCache()
+            if (Caches<T>.Values.ContainsKey(key))
+                return (string) Caches<T>.Values[key];
+
+            var value = typeof(T).GetField(key).GetCustomAttribute<EnumMemberAttribute>().Value;
+            Caches<T>.Values.Add(key, value);
+
+            return value;
+        }
+
+        private static class Caches<T>
+        {
+            public static readonly Hashtable Values;
+
+            static Caches()
             {
-                Value = new Dictionary<string, T>();
+                Values = new Hashtable();
             }
         }
     }
