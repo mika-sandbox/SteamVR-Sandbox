@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SteamVR_Sandbox.Scripts
 {
-    public class AvatarFingerInput : MonoBehaviour
+    public class AvatarFingerInput : AnimatorIKReceiver
     {
         private bool _hasAnimationController;
 
@@ -23,11 +23,25 @@ namespace SteamVR_Sandbox.Scripts
             _hasAnimationController = Animator.runtimeAnimatorController != null;
         }
 
+        private static HumanBodyBones GetHumanBodyBoneFromString(string category)
+        {
+            return ReflectionHelper.GetEnumValue<HumanBodyBones>(category);
+        }
+
+        private static MuscleName GetMuscleNameFromString(string category)
+        {
+            return ReflectionHelper.GetEnumValue<MuscleName>(category);
+        }
+
         #region OnAnimatorIK
 
-        private void OnAnimatorIK()
+        public override void OnAnimatorIKReceived()
         {
             if (!_hasAnimationController)
+                return;
+
+            var state = Animator.GetCurrentAnimatorStateInfo(2); // FINGER_EMOTES
+            if (!state.IsName("FINGER_EMOTES_IDLE"))
                 return;
 
             SetFingerCurlsInAnimatorIK(ControllerSide.Left);
@@ -70,13 +84,13 @@ namespace SteamVR_Sandbox.Scripts
             var muscle = GetMuscleNameFromString(muscleCategory);
             var bone = GetHumanBodyBoneFromString(boneCategory);
 
-            var x = HumanTrait.MuscleFromBone((int)bone, 0);
-            var y = HumanTrait.MuscleFromBone((int)bone, 1);
-            var z = HumanTrait.MuscleFromBone((int)bone, 2);
+            var x = HumanTrait.MuscleFromBone((int) bone, 0);
+            var y = HumanTrait.MuscleFromBone((int) bone, 1);
+            var z = HumanTrait.MuscleFromBone((int) bone, 2);
 
-            if (x == (int)muscle) Animator.SetBoneLocalRotation(bone, Quaternion.Euler(0, 0, CalcFingerCurl(muscle, curl, weight)));
-            if (y == (int)muscle) Animator.SetBoneLocalRotation(bone, Quaternion.Euler(0, CalcFingerCurl(muscle, curl, weight), 0));
-            if (z == (int)muscle) Animator.SetBoneLocalRotation(bone, Quaternion.Euler(CalcFingerCurl(muscle, curl, weight), 0, 0));
+            if (x == (int) muscle) Animator.SetBoneLocalRotation(bone, Quaternion.Euler(0, 0, CalcFingerCurl(muscle, curl, weight)));
+            if (y == (int) muscle) Animator.SetBoneLocalRotation(bone, Quaternion.Euler(0, CalcFingerCurl(muscle, curl, weight), 0));
+            if (z == (int) muscle) Animator.SetBoneLocalRotation(bone, Quaternion.Euler(CalcFingerCurl(muscle, curl, weight), 0, 0));
         }
 
         private static float CalcFingerCurl(MuscleName muscle, float curl, float weight)
@@ -85,16 +99,6 @@ namespace SteamVR_Sandbox.Scripts
         }
 
         #endregion
-
-        private static HumanBodyBones GetHumanBodyBoneFromString(string category)
-        {
-            return ReflectionHelper.GetEnumValue<HumanBodyBones>(category);
-        }
-
-        private static MuscleName GetMuscleNameFromString(string category)
-        {
-            return ReflectionHelper.GetEnumValue<MuscleName>(category);
-        }
 
         #region In Update Event
 
