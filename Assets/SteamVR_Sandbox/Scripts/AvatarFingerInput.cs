@@ -54,32 +54,32 @@ namespace SteamVR_Sandbox.Scripts
             var skeleton = hand.Skeleton;
 
             // Index
-            SetFingerCurlInAnimatorIK($"{side}Index1Stretched", $"{side}IndexProximal", skeleton.indexCurl, hand.Index.Stretch1Weight);
-            SetFingerCurlInAnimatorIK($"{side}Index2Stretched", $"{side}IndexIntermediate", skeleton.indexCurl, hand.Index.Stretch2Weight);
-            SetFingerCurlInAnimatorIK($"{side}Index3Stretched", $"{side}IndexDistal", skeleton.indexCurl, hand.Index.Stretch3Weight);
+            SetFingerCurlInAnimatorIK($"{side}Index1Stretched", $"{side}IndexProximal", skeleton.indexCurl, hand.Index.Stretch1Weight, hand.Index.Stretch1Axis);
+            SetFingerCurlInAnimatorIK($"{side}Index2Stretched", $"{side}IndexIntermediate", skeleton.indexCurl, hand.Index.Stretch2Weight, hand.Index.Stretch2Axis);
+            SetFingerCurlInAnimatorIK($"{side}Index3Stretched", $"{side}IndexDistal", skeleton.indexCurl, hand.Index.Stretch3Weight, hand.Index.Stretch3Axis);
 
             // Little
-            SetFingerCurlInAnimatorIK($"{side}Little1Stretched", $"{side}LittleProximal", skeleton.pinkyCurl, hand.Little.Stretch1Weight);
-            SetFingerCurlInAnimatorIK($"{side}Little2Stretched", $"{side}LittleIntermediate", skeleton.pinkyCurl, hand.Little.Stretch2Weight);
-            SetFingerCurlInAnimatorIK($"{side}Little3Stretched", $"{side}LittleDistal", skeleton.pinkyCurl, hand.Little.Stretch3Weight);
+            SetFingerCurlInAnimatorIK($"{side}Little1Stretched", $"{side}LittleProximal", skeleton.pinkyCurl, hand.Little.Stretch1Weight, hand.Little.Stretch1Axis);
+            SetFingerCurlInAnimatorIK($"{side}Little2Stretched", $"{side}LittleIntermediate", skeleton.pinkyCurl, hand.Little.Stretch2Weight, hand.Little.Stretch2Axis);
+            SetFingerCurlInAnimatorIK($"{side}Little3Stretched", $"{side}LittleDistal", skeleton.pinkyCurl, hand.Little.Stretch3Weight, hand.Little.Stretch3Axis);
 
             // Middle
-            SetFingerCurlInAnimatorIK($"{side}Middle1Stretched", $"{side}MiddleProximal", skeleton.middleCurl, hand.Middle.Stretch1Weight);
-            SetFingerCurlInAnimatorIK($"{side}Middle2Stretched", $"{side}MiddleIntermediate", skeleton.middleCurl, hand.Middle.Stretch2Weight);
-            SetFingerCurlInAnimatorIK($"{side}Middle3Stretched", $"{side}MiddleDistal", skeleton.middleCurl, hand.Middle.Stretch3Weight);
+            SetFingerCurlInAnimatorIK($"{side}Middle1Stretched", $"{side}MiddleProximal", skeleton.middleCurl, hand.Middle.Stretch1Weight, hand.Middle.Stretch1Axis);
+            SetFingerCurlInAnimatorIK($"{side}Middle2Stretched", $"{side}MiddleIntermediate", skeleton.middleCurl, hand.Middle.Stretch2Weight, hand.Middle.Stretch2Axis);
+            SetFingerCurlInAnimatorIK($"{side}Middle3Stretched", $"{side}MiddleDistal", skeleton.middleCurl, hand.Middle.Stretch3Weight, hand.Middle.Stretch3Axis);
 
             // Ring
-            SetFingerCurlInAnimatorIK($"{side}Ring1Stretched", $"{side}RingProximal", skeleton.ringCurl, hand.Ring.Stretch1Weight);
-            SetFingerCurlInAnimatorIK($"{side}Ring2Stretched", $"{side}RingIntermediate", skeleton.ringCurl, hand.Ring.Stretch2Weight);
-            SetFingerCurlInAnimatorIK($"{side}Ring3Stretched", $"{side}RingDistal", skeleton.ringCurl, hand.Ring.Stretch3Weight);
+            SetFingerCurlInAnimatorIK($"{side}Ring1Stretched", $"{side}RingProximal", skeleton.ringCurl, hand.Ring.Stretch1Weight, hand.Ring.Stretch1Axis);
+            SetFingerCurlInAnimatorIK($"{side}Ring2Stretched", $"{side}RingIntermediate", skeleton.ringCurl, hand.Ring.Stretch2Weight, hand.Ring.Stretch2Axis);
+            SetFingerCurlInAnimatorIK($"{side}Ring3Stretched", $"{side}RingDistal", skeleton.ringCurl, hand.Ring.Stretch3Weight, hand.Ring.Stretch3Axis);
 
             // Thumb
-            SetFingerCurlInAnimatorIK($"{side}Thumb1Stretched", $"{side}ThumbProximal", skeleton.thumbCurl, hand.Thumb.Stretch1Weight);
-            SetFingerCurlInAnimatorIK($"{side}Thumb2Stretched", $"{side}ThumbIntermediate", skeleton.thumbCurl, hand.Thumb.Stretch2Weight);
-            SetFingerCurlInAnimatorIK($"{side}Thumb3Stretched", $"{side}ThumbDistal", skeleton.thumbCurl, hand.Thumb.Stretch3Weight);
+            SetFingerCurlInAnimatorIK($"{side}Thumb1Stretched", $"{side}ThumbProximal", skeleton.thumbCurl, hand.Thumb.Stretch1Weight, hand.Thumb.Stretch1Axis);
+            SetFingerCurlInAnimatorIK($"{side}Thumb2Stretched", $"{side}ThumbIntermediate", skeleton.thumbCurl, hand.Thumb.Stretch2Weight, hand.Thumb.Stretch2Axis);
+            SetFingerCurlInAnimatorIK($"{side}Thumb3Stretched", $"{side}ThumbDistal", skeleton.thumbCurl, hand.Thumb.Stretch3Weight, hand.Thumb.Stretch3Axis);
         }
 
-        private void SetFingerCurlInAnimatorIK(string muscleCategory, string boneCategory, float curl, float weight)
+        private void SetFingerCurlInAnimatorIK(string muscleCategory, string boneCategory, float curl, float weight, Vector3 axis)
         {
             var muscle = GetMuscleNameFromString(muscleCategory);
             var bone = GetHumanBodyBoneFromString(boneCategory);
@@ -88,9 +88,12 @@ namespace SteamVR_Sandbox.Scripts
             var y = HumanTrait.MuscleFromBone((int) bone, 1);
             var z = HumanTrait.MuscleFromBone((int) bone, 2);
 
-            if (x == (int) muscle) Animator.SetBoneLocalRotation(bone, Quaternion.Euler(0, 0, CalcFingerCurl(muscle, curl, weight)));
-            if (y == (int) muscle) Animator.SetBoneLocalRotation(bone, Quaternion.Euler(0, CalcFingerCurl(muscle, curl, weight), 0));
-            if (z == (int) muscle) Animator.SetBoneLocalRotation(bone, Quaternion.Euler(CalcFingerCurl(muscle, curl, weight), 0, 0));
+            // Animator.SetBoneLocalRotation(bone, Quaternion.AngleAxis(CalcFingerCurl(muscle, curl, weight), axis));
+            Animator.SetBoneLocalRotation(bone, HumanPoseSimulator.CalcFingerCurlByQuaternion(muscle, curl * weight));
+
+            // if (x == (int) muscle) Animator.SetBoneLocalRotation(bone, Quaternion.Euler(0, 0, CalcFingerCurl(muscle, curl, weight)));
+            // if (y == (int) muscle) Animator.SetBoneLocalRotation(bone, Quaternion.Euler(0, CalcFingerCurl(muscle, curl, weight), 0));
+            // if (z == (int) muscle) Animator.SetBoneLocalRotation(bone, Quaternion.Euler(CalcFingerCurl(muscle, curl, weight), 0, 0));
         }
 
         private static float CalcFingerCurl(MuscleName muscle, float curl, float weight)

@@ -30,9 +30,15 @@ namespace SteamVR_Sandbox.Models
         public void OnUpdate(Animator animator, SteamVR_Action_Skeleton skeleton)
         {
             if (IndexThreshold.Compare(skeleton.indexCurl) && LittleThreshold.Compare(skeleton.pinkyCurl) && MiddleThreshold.Compare(skeleton.middleCurl) && RingThreshold.Compare(skeleton.ringCurl) && ThumbThreshold.Compare(skeleton.thumbCurl))
+            {
+                animator.SetLayerWeight(2, 1); // FINGER_EMOTES
                 animator.SetBool(AnimationState.GetEnumMemberValue(), true);
+            }
             else
+            {
+                animator.SetLayerWeight(2, 0); // FINGER_EMOTES
                 animator.SetBool(AnimationState.GetEnumMemberValue(), false);
+            }
         }
     }
 }

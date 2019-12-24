@@ -18,5 +18,14 @@ namespace SteamVR_Sandbox.Models
         [SerializeField]
         [Range(0f, 1f)]
         public float Stretch3Weight;
+
+        [SerializeField]
+        public Vector3 Stretch1Axis;
+
+        [SerializeField]
+        public Vector3 Stretch2Axis;
+
+        [SerializeField]
+        public Vector3 Stretch3Axis;
     }
 }

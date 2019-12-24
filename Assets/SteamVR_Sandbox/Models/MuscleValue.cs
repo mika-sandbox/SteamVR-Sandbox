@@ -1,16 +1,13 @@
-﻿using System;
-
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SteamVR_Sandbox.Models
 {
-    [Serializable]
     public class MuscleValue<T>
     {
-        [SerializeField]
         public T Max { get; set; }
 
-        [SerializeField]
         public T Min { get; set; }
+
+        public Vector3 Axis { get; set; } = Vector3.zero;
     }
 }
