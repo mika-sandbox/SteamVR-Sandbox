@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.Serialization;
 
@@ -9,8 +9,8 @@ namespace SteamVR_Sandbox.Models
     {
         public static T GetEnumValue<T>(string key) where T : Enum
         {
-            if (Caches<T>.Values.ContainsKey(key))
-                return (T) Caches<T>.Values[key];
+            if (Caches<T>.Values.TryGetValue(key, out var existsValue))
+                return existsValue;
 
             var value = (T) Enum.Parse(typeof(T), key);
             Caches<T>.Values.Add(key, value);
@@ -24,22 +24,32 @@ namespace SteamVR_Sandbox.Models
             if (string.IsNullOrWhiteSpace(key))
                 throw new ArgumentNullException();
 
-            if (Caches<T>.Values.ContainsKey(key))
-                return (string) Caches<T>.Values[key];
+            if (Caches<T, string>.Values.TryGetValue(key, out var existsValue))
+                return existsValue;
 
             var value = typeof(T).GetField(key).GetCustomAttribute<EnumMemberAttribute>().Value;
-            Caches<T>.Values.Add(key, value);
+            Caches<T, string>.Values.Add(key, value);
 
             return value;
         }
 
         private static class Caches<T>
         {
-            public static readonly Hashtable Values;
+            public static readonly Dictionary<string, T> Values;
 
             static Caches()
             {
-                Values = new Hashtable();
+                Values = new Dictionary<string, T>();
+            }
+        }
+
+        private static class Caches<T, TU>
+        {
+            public static readonly Dictionary<string, TU> Values;
+
+            static Caches()
+            {
+                Values = new Dictionary<string, TU>();
             }
         }
     }
