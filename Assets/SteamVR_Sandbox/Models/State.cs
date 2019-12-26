@@ -4,25 +4,25 @@ namespace SteamVR_Sandbox.Models
 {
     public enum State
     {
-        [EnumMember(Value = "FINGER_EMOTE_FINGERPOINT")]
-        FingerEmoteFingerPoint,
+        [EnumMember(Value = "FingerPoint")]
+        FingerPoint,
 
-        [EnumMember(Value = "FINGER_EMOTE_FIST")]
-        FingerEmoteFist,
+        [EnumMember(Value = "Fist")]
+        Fist,
 
-        [EnumMember(Value = "FINGER_EMOTE_HANDGUN")]
-        FingerEmoteHandGun,
+        [EnumMember(Value = "HandGun")]
+        HandGun,
 
-        [EnumMember(Value = "FINGER_EMOTE_HANDOPEN")]
-        FingerEmoteHandOpen,
+        [EnumMember(Value = "HandOpen")]
+        HandOpen,
 
-        [EnumMember(Value = "FINGER_EMOTE_ROCKNROLL")]
-        FingerEmoteRocknRoll,
+        [EnumMember(Value = "RocknRoll")]
+        RocknRoll,
 
-        [EnumMember(Value = "FINGER_EMOTE_THUMBSUP")]
-        FingerEmoteThumbsUp,
+        [EnumMember(Value = "ThumbsUp")]
+        ThumbsUp,
 
-        [EnumMember(Value = "FINGER_EMOTE_VICTORY")]
-        FingerEmoteVictory
+        [EnumMember(Value = "Victory")]
+        Victory
     }
 }
