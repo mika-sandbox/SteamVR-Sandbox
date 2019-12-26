@@ -4,8 +4,9 @@ using UnityEngine;
 
 #pragma warning disable 649
 
-namespace SteamVR_Sandbox.Scripts
+namespace SteamVR_Sandbox.Avatar
 {
+    [AddComponentMenu("Scripts/Mochizuki.VR/Avatar/Avatar Calibrator")]
     public class AvatarCalibrator : MonoBehaviour
     {
         private const float PlayerHandDistanceByHeight = .78f;

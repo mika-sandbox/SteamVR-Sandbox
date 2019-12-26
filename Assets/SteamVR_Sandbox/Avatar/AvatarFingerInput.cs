@@ -2,8 +2,9 @@
 
 using UnityEngine;
 
-namespace SteamVR_Sandbox.Scripts
+namespace SteamVR_Sandbox.Avatar
 {
+    [AddComponentMenu("Scripts/Mochizuki.VR/Avatar/Avatar Finger Input")]
     public class AvatarFingerInput : AnimatorIKReceiver
     {
         private bool _hasAnimationController;

@@ -5,8 +5,9 @@ using UnityEngine;
 using Valve.VR;
 
 // ReSharper disable once InconsistentNaming
-namespace SteamVR_Sandbox.Scripts
+namespace SteamVR_Sandbox.SteamVR
 {
+    [AddComponentMenu("Scripts/Mochizuki.VR/SteamVR/SteamVR Controller Calibrator")]
     public class SteamVRControllerCalibrator : MonoBehaviour
     {
         private bool _isFixed;
@@ -28,7 +29,7 @@ namespace SteamVR_Sandbox.Scripts
             if (_isFixed)
                 return;
 
-            var controller = SteamVR.instance.GetStringProperty(ETrackedDeviceProperty.Prop_ControllerType_String);
+            var controller = Valve.VR.SteamVR.instance.GetStringProperty(ETrackedDeviceProperty.Prop_ControllerType_String);
             Tracker.transform.localPosition = ControllerDefinition.GetControllerPositionOffset(controller, Side);
             Tracker.transform.localRotation = ControllerDefinition.GetControllerRotationOffset(controller, Side);
 

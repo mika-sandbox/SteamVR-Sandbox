@@ -4,18 +4,19 @@ using UnityEngine;
 
 using Valve.VR.InteractionSystem;
 
-namespace SteamVR_Sandbox.Scripts
+namespace SteamVR_Sandbox.SteamVR
 {
     // ReSharper disable once InconsistentNaming
+    [AddComponentMenu("Scripts/Mochizuki.VR/SteamVR/SteamVR Fallback")]
     [RequireComponent(typeof(Player))]
     public class SteamVRFallback : MonoBehaviour
     {
-        private bool previous;
+        private bool _previous;
 
         // Start is called before the first frame update
         private void Start()
         {
-            if (Debug.isDebugBuild) previous = Player.instance.rigSteamVR.activeSelf;
+            if (Debug.isDebugBuild) _previous = Player.instance.rigSteamVR.activeSelf;
         }
 
         // Update is called once per frame
@@ -24,9 +25,9 @@ namespace SteamVR_Sandbox.Scripts
             if (!Debug.isDebugBuild)
                 return;
 
-            if (previous != Player.instance.rigSteamVR.activeSelf)
+            if (_previous != Player.instance.rigSteamVR.activeSelf)
             {
-                previous = Player.instance.rigSteamVR.activeSelf;
+                _previous = Player.instance.rigSteamVR.activeSelf;
 
                 if (Player.instance.rigSteamVR.activeSelf)
                 {
