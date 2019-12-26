@@ -1,4 +1,5 @@
-﻿using SteamVR_Sandbox.Models;
+﻿using SteamVR_Sandbox.Enums;
+using SteamVR_Sandbox.Models;
 
 using UnityEngine;
 
@@ -45,13 +46,13 @@ namespace SteamVR_Sandbox.Avatar
             if (!state.IsName("FINGER_EMOTES_IDLE"))
                 return;
 
-            SetFingerCurlsInAnimatorIK(ControllerSide.Left);
-            SetFingerCurlsInAnimatorIK(ControllerSide.Right);
+            SetFingerCurlsInAnimatorIK(Side.Left);
+            SetFingerCurlsInAnimatorIK(Side.Right);
         }
 
-        private void SetFingerCurlsInAnimatorIK(ControllerSide side)
+        private void SetFingerCurlsInAnimatorIK(Side side)
         {
-            var hand = side == ControllerSide.Left ? LeftHand : RightHand;
+            var hand = side == Side.Left ? LeftHand : RightHand;
             var skeleton = hand.Skeleton;
 
             // Index
@@ -116,16 +117,16 @@ namespace SteamVR_Sandbox.Avatar
                 var humanPose = new HumanPose();
                 handler.GetHumanPose(ref humanPose);
 
-                SetFingerCurlsInUpdate(ref humanPose, ControllerSide.Left);
-                SetFingerCurlsInUpdate(ref humanPose, ControllerSide.Right);
+                SetFingerCurlsInUpdate(ref humanPose, Side.Left);
+                SetFingerCurlsInUpdate(ref humanPose, Side.Right);
 
                 handler.SetHumanPose(ref humanPose);
             }
         }
 
-        private void SetFingerCurlsInUpdate(ref HumanPose humanPose, ControllerSide side)
+        private void SetFingerCurlsInUpdate(ref HumanPose humanPose, Side side)
         {
-            var hand = side == ControllerSide.Left ? LeftHand : RightHand;
+            var hand = side == Side.Left ? LeftHand : RightHand;
             var skeleton = hand.Skeleton;
 
             // Index

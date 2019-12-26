@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 
+using SteamVR_Sandbox.Enums;
 using SteamVR_Sandbox.Models;
 
 using UnityEngine;
@@ -17,6 +18,9 @@ namespace SteamVR_Sandbox.Scripts
         private List<AvatarAnimation> AvatarAnimations;
 
         [SerializeField]
+        private Side Side;
+
+        [SerializeField]
         private SteamVR_Action_Skeleton Skeleton;
 
         // Update is called once per frame
@@ -25,7 +29,7 @@ namespace SteamVR_Sandbox.Scripts
             if (Animator == null || Skeleton == null)
                 return;
 
-            foreach (var avatarAnimation in AvatarAnimations) avatarAnimation.OnUpdate(Animator, Skeleton);
+            foreach (var avatarAnimation in AvatarAnimations) avatarAnimation.OnUpdate(Animator, Side, Skeleton);
         }
     }
 }

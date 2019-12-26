@@ -1,4 +1,5 @@
-﻿using SteamVR_Sandbox.Models;
+﻿using SteamVR_Sandbox.Enums;
+using SteamVR_Sandbox.Models;
 
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace SteamVR_Sandbox.SteamVR
         private bool _isFixed;
 
         [SerializeField]
-        private ControllerSide Side;
+        private Side Side;
 
         [SerializeField]
         private GameObject Tracker;

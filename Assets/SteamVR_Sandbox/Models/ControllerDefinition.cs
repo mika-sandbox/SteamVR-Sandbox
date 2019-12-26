@@ -1,5 +1,7 @@
 ﻿using System;
 
+using SteamVR_Sandbox.Enums;
+
 using UnityEngine;
 
 namespace SteamVR_Sandbox.Models
@@ -9,34 +11,34 @@ namespace SteamVR_Sandbox.Models
         private static readonly ControllerDefinition IndexController;
         private static readonly ControllerDefinition OculusTouch;
 
-        private Vector3 leftHandPosition;
-        private Quaternion leftHandRotation;
+        private Vector3 _leftHandPosition;
+        private Quaternion _leftHandRotation;
 
-        private Vector3 rightHandPosition;
-        private Quaternion rightHandRotation;
+        private Vector3 _rightHandPosition;
+        private Quaternion _rightHandRotation;
 
         static ControllerDefinition()
         {
             // Index HMD
             IndexController = new ControllerDefinition
             {
-                leftHandPosition = new Vector3(0, .025f, -.1f),
-                leftHandRotation = Quaternion.Euler(135f, -75, -35),
-                rightHandPosition = new Vector3(0, -.025f, -.1f),
-                rightHandRotation = Quaternion.Euler(135f, 75, 35)
+                _leftHandPosition = new Vector3(0, .025f, -.1f),
+                _leftHandRotation = Quaternion.Euler(135f, -75, -35),
+                _rightHandPosition = new Vector3(0, -.025f, -.1f),
+                _rightHandRotation = Quaternion.Euler(135f, 75, 35)
             };
 
             // Oculus Rift S, Oculus Quest
             OculusTouch = new ControllerDefinition
             {
-                leftHandPosition = new Vector3(0, .025f, .11f),
-                leftHandRotation = Quaternion.Euler(5, 90, 105),
-                rightHandPosition = new Vector3(0, -.025f, .11f),
-                rightHandRotation = Quaternion.Euler(5, -90, -105)
+                _leftHandPosition = new Vector3(0, .025f, .11f),
+                _leftHandRotation = Quaternion.Euler(5, 90, 105),
+                _rightHandPosition = new Vector3(0, -.025f, .11f),
+                _rightHandRotation = Quaternion.Euler(5, -90, -105)
             };
         }
 
-        public static Vector3 GetControllerPositionOffset(string controller, ControllerSide side)
+        public static Vector3 GetControllerPositionOffset(string controller, Side side)
         {
             switch (controller)
             {
@@ -51,7 +53,7 @@ namespace SteamVR_Sandbox.Models
             }
         }
 
-        public static Quaternion GetControllerRotationOffset(string controller, ControllerSide side)
+        public static Quaternion GetControllerRotationOffset(string controller, Side side)
         {
             switch (controller)
             {
@@ -66,30 +68,30 @@ namespace SteamVR_Sandbox.Models
             }
         }
 
-        private static Vector3 GetControllerPositionOffset(ControllerDefinition definition, ControllerSide side)
+        private static Vector3 GetControllerPositionOffset(ControllerDefinition definition, Side side)
         {
             switch (side)
             {
-                case ControllerSide.Left:
-                    return definition.leftHandPosition;
+                case Side.Left:
+                    return definition._leftHandPosition;
 
-                case ControllerSide.Right:
-                    return definition.rightHandPosition;
+                case Side.Right:
+                    return definition._rightHandPosition;
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(side));
             }
         }
 
-        private static Quaternion GetControllerRotationOffset(ControllerDefinition definition, ControllerSide side)
+        private static Quaternion GetControllerRotationOffset(ControllerDefinition definition, Side side)
         {
             switch (side)
             {
-                case ControllerSide.Left:
-                    return definition.leftHandRotation;
+                case Side.Left:
+                    return definition._leftHandRotation;
 
-                case ControllerSide.Right:
-                    return definition.rightHandRotation;
+                case Side.Right:
+                    return definition._rightHandRotation;
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(side));
