@@ -25,7 +25,7 @@ Sandbox repository for SteamVR.
 
 If you want to use your own (original/purchased) 3D model, please configure it as following steps:
 
-* Attack `VRIK` C# script to your own 3D model and configure it.
+* Attach `VRIK` C# script to your own 3D model and configure it.
   * For some Solver values, set the following values:
     * `Solver/Spine/Head Target` : `SteamVRObjects/[CameraRig]/Camera/Head_Target`
     * `Solver/Left Arm/Target` : `SteamVRObjects/[CameraRig]/Controller (left)/LeftHand_Target`
