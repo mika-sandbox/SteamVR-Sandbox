@@ -29,36 +29,36 @@ namespace SteamVR_Sandbox.Humanoid
                 FingerCategory.Index,
                 new[]
                 {
-                    new Stretch { RangeOfMotion = new Range<float>(-15f, 90f), Direction = Vector3.right },
-                    new Stretch { RangeOfMotion = new Range<float>(-10f, 100f), Direction = Vector3.right },
-                    new Stretch { RangeOfMotion = new Range<float>(-10f, 80f), Direction = Vector3.right }
+                    new Stretch { RangeOfMotion = new Range<float>(-12.5f, 90f), Direction = Vector3.right },
+                    new Stretch { RangeOfMotion = new Range<float>(-7.5f, 100f), Direction = Vector3.right },
+                    new Stretch { RangeOfMotion = new Range<float>(-7.5f, 80f), Direction = Vector3.right }
                 }
             },
             {
                 FingerCategory.Middle,
                 new[]
                 {
-                    new Stretch { RangeOfMotion = new Range<float>(-15f, 90f), Direction = Vector3.right },
-                    new Stretch { RangeOfMotion = new Range<float>(-10f, 100f), Direction = Vector3.right },
-                    new Stretch { RangeOfMotion = new Range<float>(-10f, 80f), Direction = Vector3.right }
+                    new Stretch { RangeOfMotion = new Range<float>(-12.5f, 90f), Direction = Vector3.right },
+                    new Stretch { RangeOfMotion = new Range<float>(-7.5f, 100f), Direction = Vector3.right },
+                    new Stretch { RangeOfMotion = new Range<float>(-7.5f, 80f), Direction = Vector3.right }
                 }
             },
             {
                 FingerCategory.Ring,
                 new[]
                 {
-                    new Stretch { RangeOfMotion = new Range<float>(-15f, 90f), Direction = Vector3.right },
-                    new Stretch { RangeOfMotion = new Range<float>(-10f, 100f), Direction = Vector3.right },
-                    new Stretch { RangeOfMotion = new Range<float>(-10f, 80f), Direction = Vector3.right }
+                    new Stretch { RangeOfMotion = new Range<float>(-12.5f, 90f), Direction = Vector3.right },
+                    new Stretch { RangeOfMotion = new Range<float>(-7.5f, 100f), Direction = Vector3.right },
+                    new Stretch { RangeOfMotion = new Range<float>(-7.5f, 80f), Direction = Vector3.right }
                 }
             },
             {
                 FingerCategory.Little,
                 new[]
                 {
-                    new Stretch { RangeOfMotion = new Range<float>(-15f, 90f), Direction = Vector3.right },
-                    new Stretch { RangeOfMotion = new Range<float>(-10f, 100f), Direction = Vector3.right },
-                    new Stretch { RangeOfMotion = new Range<float>(-10f, 80f), Direction = Vector3.right }
+                    new Stretch { RangeOfMotion = new Range<float>(-12.5f, 90f), Direction = Vector3.right },
+                    new Stretch { RangeOfMotion = new Range<float>(-7.5f, 100f), Direction = Vector3.right },
+                    new Stretch { RangeOfMotion = new Range<float>(-7.5f, 80f), Direction = Vector3.right }
                 }
             }
         };
