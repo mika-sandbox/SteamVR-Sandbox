@@ -13,20 +13,24 @@ Sandbox repository for SteamVR.
 
 ## Scenes
 
-| Scene Name                      | Description                                                                  |
-| ------------------------------- | ---------------------------------------------------------------------------- |
-| `VRMirror`                      | Mirror in VR World                                                           |
-| `AvatarCalibration`             | Calibrate VR Avatar by Player Height                                         |
-| `IndexControllerFingerTracking` | Finger Tracking by Valve Index Controller inputs                             |
-| `FingerTrackingWithAnimation`   | Finger Tracking by Valve Index Controller with Animation Controller          |
+| Scene Name                      | Description                                                         |
+| ------------------------------- | ------------------------------------------------------------------- |
+| `VRMirror`                      | Mirror in VR World                                                  |
+| `AvatarCalibration`             | Calibrate VR Avatar by Player Height                                |
+| `IndexControllerFingerTracking` | Finger Tracking by Valve Index Controller inputs                    |
+| `FingerTrackingWithAnimation`   | Finger Tracking by Valve Index Controller with Animation Controller |
 
 
 ## Preparation
 
-All of scenes does not contains 3D model prefabs.  
-But, all C# scripts that other than VRIK are attached in `VR_Player` GameObject that outside of Prefab.  
-Please configure `Animator`, `Transform` and `IK` to your imported 3D model.
+If you want to use your own (original/purchased) 3D model, please configure it as following steps:
 
+* Attack `VRIK` C# script to your own 3D model and configure it.
+  * For some Solver values, set the following values:
+    * `Solver/Spine/Head Target` : `SteamVRObjects/[CameraRig]/Camera/Head_Target`
+    * `Solver/Left Arm/Target` : `SteamVRObjects/[CameraRig]/Controller (left)/LeftHand_Target`
+    * `Solver/Right Arm/Target` : `SteamVRObjects/[CameraRig]/Controller (right)/RightHand_Target`
+* Replace `Animator`, `Transform` and `IK` values set in the `World/VR_Player` with your own 3D model.
 * The ViewPosition of the `AvatarCalibrator` needs to be set to an optimal value for each 3D model.
   * Examples
     * Quiche : `(x, y, z) = (0, 1.22, 0.19)`
