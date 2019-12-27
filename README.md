@@ -8,14 +8,8 @@ Sandbox repository for SteamVR.
   - Arktoon Shaders (used in Avatar Material)
   - DynamicBone (used in Avatar)
   - Final IK (required)
-  - Gaia
-  - MeshBaker
   - SteamVR Plugin (required)
-  - Unity-Chan (used as Avatar)
-  - Unity-Chan Toon Shader (used in Avatar Material)
   - Vive Stereo Rendering Toolkit (required)
-  - Your 3D Model 
-    - Samples uses Shapell and Quiche as player character
 
 ## Scenes
 
@@ -36,3 +30,11 @@ Please configure `Animator`, `Transform` and `IK` to your imported 3D model.
   * Examples
     * Quiche : `(x, y, z) = (0, 1.22, 0.19)`
     * Shapell: `(x, y, z) = (0, 1.18, 0.155)`
+  * This is the same value as the View Position setting on VRChat Avatar Descriptor. However, the Z value uses +0.1f.
+* In the scene after `FingerTrackingWithAnimation`, attach the `IKPass` C# script to 3D model as shown in the image.
+
+
+## About included 3D Model
+
+This repository uses "Shapell" that published in CC0 as an example of a 3D model.  
+You can download original 3D model from [here](https://booth.pm/ja/items/1349366).
