@@ -25,7 +25,7 @@ Sandbox repository for SteamVR.
 
 If you want to use your own (original/purchased) 3D model, please configure it as following steps:
 
-* Attach `VRIK` C# script to your own 3D model and configure it.
+* Attach `VRIK` component to your own 3D model and configure it.
   * For some Solver values, set the following values:
     * `Solver/Spine/Head Target` : `SteamVRObjects/[CameraRig]/Camera/Head_Target`
     * `Solver/Left Arm/Target` : `SteamVRObjects/[CameraRig]/Controller (left)/LeftHand_Target`
@@ -36,7 +36,7 @@ If you want to use your own (original/purchased) 3D model, please configure it a
     * Quiche : `(x, y, z) = (0, 1.22, 0.19)`
     * Shapell: `(x, y, z) = (0, 1.18, 0.155)`
   * This is the same value as the View Position setting on VRChat Avatar Descriptor. However, the Z value uses +0.1f.
-* In the scene after `FingerTrackingWithAnimation`, attach the `IKPass` C# script to 3D model as shown in the image.<br />
+* In the scene after `FingerTrackingWithAnimation`, attach the `IKPass` component to 3D model as shown in the image.<br />
   <img src="https://user-images.githubusercontent.com/10832834/71507116-b4318000-28c6-11ea-8532-8e13fe99a2c9.PNG" width="400px" />
 
 
