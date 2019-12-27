@@ -69,18 +69,20 @@ crashlytics-build.properties
 
 # End of https://www.gitignore.io/api/unity
 
-
 # Ignore all assets that imported from AssetStore, Booth, GitHub and others.
-/[Aa]ssets/_TerrainAutoUpgrade/
-/[Aa]ssets/arktoon Shaders/
-/[Aa]ssets/Booth/
-/[Aa]ssets/DynamicBone/
-/[Aa]ssets/HTC.UnityPlugin/
-/[Aa]ssets/MeshBaker/
-/[Aa]ssets/Plugins/RootMotion/
-/[Aa]ssets/Procedural Worlds/
-/[Aa]ssets/Shapell/
-/[Aa]ssets/SteamVR/
-/[Aa]ssets/SteamVR_Resources/
+/[Aa]ssets/_TerrainAutoUpgrade/*
+/[Aa]ssets/arktoon Shaders/*
+/[Aa]ssets/Booth/*
+/[Aa]ssets/DynamicBone/*
+/[Aa]ssets/HTC.UnityPlugin/*
+/[Aa]ssets/MeshBaker/*
+/[Aa]ssets/Plugins/RootMotion/*
+/[Aa]ssets/Procedural Worlds/*
+/[Aa]ssets/Shapell/*
+/[Aa]ssets/SteamVR/*
+/[Aa]ssets/SteamVR_Resources/*
 /[Aa]ssets/Toon/*
 /[Aa]ssets/UnityChan/*
+
+# But, I want to track Shapell 3D Model for Sample (Shapell is licensed under the CC0)
+!/[Aa]ssets/Booth/Shapell/
