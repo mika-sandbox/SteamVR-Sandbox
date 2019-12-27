@@ -32,7 +32,8 @@ Please configure `Animator`, `Transform` and `IK` to your imported 3D model.
     * Quiche : `(x, y, z) = (0, 1.22, 0.19)`
     * Shapell: `(x, y, z) = (0, 1.18, 0.155)`
   * This is the same value as the View Position setting on VRChat Avatar Descriptor. However, the Z value uses +0.1f.
-* In the scene after `FingerTrackingWithAnimation`, attach the `IKPass` C# script to 3D model as shown in the image.
+* In the scene after `FingerTrackingWithAnimation`, attach the `IKPass` C# script to 3D model as shown in the image.<br />
+  <img src="https://user-images.githubusercontent.com/10832834/71507116-b4318000-28c6-11ea-8532-8e13fe99a2c9.PNG" width="400px" />
 
 
 ## About included 3D Model
