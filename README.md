@@ -18,6 +18,7 @@ Sandbox repository for SteamVR.
 | `VRMirror`                      | Mirror in VR World                                                           |
 | `AvatarCalibration`             | Calibrate VR Avatar by Player Height                                         |
 | `IndexControllerFingerTracking` | Finger Tracking by Valve Index Controller inputs                             |
+| `FingerTrackingWithAnimation`   | Finger Tracking by Valve Index Controller with Animation Controller          |
 
 
 ## Preparation
