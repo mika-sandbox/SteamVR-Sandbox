@@ -31,7 +31,7 @@ namespace SteamVR_Sandbox.Models
 
         public void OnUpdate(Animator animator, Side side, SteamVR_Action_Skeleton skeleton)
         {
-            var layer = animator.GetLayerIndex($"{side.ToString().ToUpper()}_HAND");
+            var layer = animator.GetLayerIndex($"{side.GetEnumMemberValue()}_HAND");
             if (IndexThreshold.Compare(skeleton.indexCurl) && LittleThreshold.Compare(skeleton.pinkyCurl) && MiddleThreshold.Compare(skeleton.middleCurl) && RingThreshold.Compare(skeleton.ringCurl) && ThumbThreshold.Compare(skeleton.thumbCurl))
             {
                 animator.SetLayerWeight(layer, 1); // FINGER_EMOTES
