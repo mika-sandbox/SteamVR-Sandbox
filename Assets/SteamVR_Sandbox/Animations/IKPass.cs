@@ -2,8 +2,9 @@
 
 using UnityEngine;
 
-namespace SteamVR_Sandbox.Scripts
+namespace SteamVR_Sandbox.Animations
 {
+    [AddComponentMenu("Scripts/Mochizuki.VR/Animation/IK Pass")]
     public class IKPass : MonoBehaviour
     {
         [SerializeField]

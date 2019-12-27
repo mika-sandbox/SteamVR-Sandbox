@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 
+using SteamVR_Sandbox.Animations;
 using SteamVR_Sandbox.Enums;
-using SteamVR_Sandbox.Models;
 
 using UnityEngine;
 
 using Valve.VR;
 
-namespace SteamVR_Sandbox.Scripts
+namespace SteamVR_Sandbox.Avatar
 {
+    [AddComponentMenu("Scripts/Mochizuki.VR/Avatar/Avatar Animator")]
     public class AvatarAnimator : MonoBehaviour
     {
         [SerializeField]

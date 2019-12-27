@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SteamVR_Sandbox.Models
+namespace SteamVR_Sandbox.Animations
 {
     public abstract class AnimatorIKReceiver : MonoBehaviour
     {

@@ -1,4 +1,5 @@
-﻿using SteamVR_Sandbox.Enums;
+﻿using SteamVR_Sandbox.Animations;
+using SteamVR_Sandbox.Enums;
 using SteamVR_Sandbox.Humanoid;
 using SteamVR_Sandbox.Models;
 

@@ -1,18 +1,19 @@
 ﻿using System;
 
 using SteamVR_Sandbox.Enums;
+using SteamVR_Sandbox.Models;
 
 using UnityEngine;
 
 using Valve.VR;
 
-namespace SteamVR_Sandbox.Models
+namespace SteamVR_Sandbox.Animations
 {
     [Serializable]
     public class AvatarAnimation
     {
         [SerializeField]
-        private State AnimationState;
+        private AnimatorState AnimationState;
 
         [SerializeField]
         private Threshold IndexThreshold;

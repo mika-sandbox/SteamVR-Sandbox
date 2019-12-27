@@ -1,4 +1,4 @@
-﻿namespace SteamVR_Sandbox.Models
+﻿namespace SteamVR_Sandbox.Enums
 {
     public enum MuscleName
     {

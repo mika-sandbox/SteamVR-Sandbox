@@ -1,8 +1,8 @@
 ﻿using System.Runtime.Serialization;
 
-namespace SteamVR_Sandbox.Models
+namespace SteamVR_Sandbox.Enums
 {
-    public enum State
+    public enum AnimatorState
     {
         [EnumMember(Value = "FingerPoint")]
         FingerPoint,
