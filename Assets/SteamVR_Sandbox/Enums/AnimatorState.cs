@@ -4,25 +4,25 @@ namespace SteamVR_Sandbox.Enums
 {
     public enum AnimatorState
     {
-        [EnumMember(Value = "FingerPoint")]
-        FingerPoint,
+        [EnumMember(Value = "Point")]
+        Point,
 
         [EnumMember(Value = "Fist")]
         Fist,
 
-        [EnumMember(Value = "HandGun")]
-        HandGun,
+        [EnumMember(Value = "Gun")]
+        Gun,
 
-        [EnumMember(Value = "HandOpen")]
-        HandOpen,
+        [EnumMember(Value = "Palm")]
+        Palm,
 
-        [EnumMember(Value = "RocknRoll")]
-        RocknRoll,
+        [EnumMember(Value = "RockNRoll")]
+        RockNRoll,
 
         [EnumMember(Value = "ThumbsUp")]
         ThumbsUp,
 
-        [EnumMember(Value = "Victory")]
-        Victory
+        [EnumMember(Value = "Peace")]
+        Peace
     }
 }
