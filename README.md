@@ -13,6 +13,10 @@ Sandbox repository for SteamVR.
 
 ## Scenes
 
+Each scene has a new implementation added to implemented in the previous scene (Rows above the table).  
+For example, `AvatarCalibration` includes `VRMirror` implementations.  
+If you want to try all implementations in this repository, play the last scene.
+
 | Scene Name                      | Description                                                         |
 | ------------------------------- | ------------------------------------------------------------------- |
 | `VRMirror`                      | Mirror in VR World                                                  |
