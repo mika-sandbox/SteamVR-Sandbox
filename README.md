@@ -2,6 +2,7 @@
 
 Sandbox repository for SteamVR.
 
+
 ## Requirements
 
 - Unity 2019.2.x
@@ -10,6 +11,7 @@ Sandbox repository for SteamVR.
   - Final IK (required)
   - SteamVR Plugin (required)
   - Vive Stereo Rendering Toolkit (required)
+
 
 ## Scenes
 
@@ -23,6 +25,7 @@ If you want to try all implementations in this repository, play the last scene.
 | `AvatarCalibration`             | Calibrate VR Avatar by Player Height                                |
 | `IndexControllerFingerTracking` | Finger Tracking by Valve Index Controller inputs                    |
 | `FingerTrackingWithAnimation`   | Finger Tracking by Valve Index Controller with Animation Controller |
+| `FingerEmotions`                | Face Emotions using finger pose                                     |
 
 
 ## Preparation
