@@ -1,6 +1,7 @@
 # SteamVR Sandbox using Unity3D
 
-Sandbox repository for SteamVR.
+Sandbox repository for SteamVR.  
+This sandbox repository is moving forward with the goal of creating a VR game as the main.
 
 
 ## Requirements
@@ -47,7 +48,21 @@ If you want to use your own (original/purchased) 3D model, please configure it a
   <img src="https://user-images.githubusercontent.com/10832834/71507116-b4318000-28c6-11ea-8532-8e13fe99a2c9.PNG" width="400px" />
 
 
+## Existing Bugs
+
+This project may be contain some bugs.  
+You can tracked bugs in [issues](https://github.com/mika-sandbox/SteamVR-Sandbox/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Abug).
+
+
+## License
+
+This project is licensed under the MIT license.  
+However, `Assets/Booth/Shapell` and below files are licensed separately.  
+Please refer to the distributor for details.
+
+
 ## About included 3D Model
 
 This repository uses "Shapell" that published in CC0 as an example of a 3D model.  
 You can download original 3D model from [here](https://booth.pm/ja/items/1349366).
+
