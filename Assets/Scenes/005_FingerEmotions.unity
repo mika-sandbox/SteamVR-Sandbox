@@ -152,6 +152,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &80676027
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &92110186 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4744130460490570, guid: 1a7210d21d17c0440bb2cc8bc095fad1,
@@ -323,7 +357,7 @@ PrefabInstance:
     - target: {fileID: 2348914, guid: 4d293c8e162f3874b982baadd71153d2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 567443618}
+      objectReference: {fileID: 80676027}
     - target: {fileID: 2348914, guid: 4d293c8e162f3874b982baadd71153d2, type: 3}
       propertyPath: m_ReceiveShadows
       value: 0
@@ -331,7 +365,7 @@ PrefabInstance:
     - target: {fileID: 3380982, guid: 4d293c8e162f3874b982baadd71153d2, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 765999648}
+      objectReference: {fileID: 851402923}
     - target: {fileID: 11489174, guid: 4d293c8e162f3874b982baadd71153d2, type: 3}
       propertyPath: size
       value: 3
@@ -387,40 +421,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 377454490}
   m_PrefabAsset: {fileID: 0}
---- !u!21 &567443618
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &628384712 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4869954239610268, guid: 1a7210d21d17c0440bb2cc8bc095fad1,
@@ -457,7 +457,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1495323715}
   m_PrefabAsset: {fileID: 0}
---- !u!43 &765999648
+--- !u!43 &851402923
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1256,6 +1256,12 @@ PrefabInstance:
     - {fileID: 114515110775445192, guid: 1a7210d21d17c0440bb2cc8bc095fad1, type: 3}
     - {fileID: 114534999850187322, guid: 1a7210d21d17c0440bb2cc8bc095fad1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1a7210d21d17c0440bb2cc8bc095fad1, type: 3}
+--- !u!95 &1495323716 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95359023791774212, guid: 1a7210d21d17c0440bb2cc8bc095fad1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1495323715}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1504679270 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4412094316445512, guid: 1a7210d21d17c0440bb2cc8bc095fad1,
@@ -1617,7 +1623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d6e42a969e218b449171803bdbabc4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Animator: {fileID: 0}
+  Animator: {fileID: 1495323716}
   LeftHand:
     Skeleton:
       actionPath: /actions/default/in/SkeletonLeftHand
@@ -1708,7 +1714,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bc1026d999a5c948ad48c58b562d607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Animator: {fileID: 0}
+  Animator: {fileID: 1495323716}
   AvatarAnimations:
   - AnimatorState: 6
     IndexThreshold:
@@ -1746,7 +1752,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HeadTracker: {fileID: 975212090}
   World: {fileID: 1489405864}
-  IK: {fileID: 0}
+  IK: {fileID: 1247156922}
   PlayerHeight: 1.57
   ViewPosition: {x: 0, y: 1.18, z: 0.155}
 --- !u!1 &2079012119
