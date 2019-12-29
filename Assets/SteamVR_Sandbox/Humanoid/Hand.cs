@@ -21,8 +21,8 @@ namespace SteamVR_Sandbox.Humanoid
                 new[]
                 {
                     new Stretch { RangeOfMotion = new Range<float>(-15f, 60f), Direction = Vector3.right },
-                    new Stretch { RangeOfMotion = new Range<float>(-10f, 80f), Direction = Vector3.right },
-                    new Stretch { RangeOfMotion = new Range<float>(-10f, 40f), Direction = Vector3.right }
+                    new Stretch { RangeOfMotion = new Range<float>(-10f, 80f), Direction = new Vector3(0, 0, -1) },
+                    new Stretch { RangeOfMotion = new Range<float>(-10f, 40f), Direction = new Vector3(0, 0, -1) }
                 }
             },
             {
