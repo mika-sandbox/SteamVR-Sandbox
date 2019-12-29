@@ -13,7 +13,7 @@ namespace SteamVR_Sandbox.Animations
     public class AvatarAnimation
     {
         [SerializeField]
-        private AnimatorState AnimationState;
+        private AnimatorState AnimatorState;
 
         [SerializeField]
         private Threshold IndexThreshold;
@@ -30,19 +30,11 @@ namespace SteamVR_Sandbox.Animations
         [SerializeField]
         private Threshold ThumbThreshold;
 
-        public void OnUpdate(Animator animator, Side side, SteamVR_Action_Skeleton skeleton)
+        public AnimatorState TransitionTo => AnimatorState;
+
+        public bool ShouldChangeAnimationState(SteamVR_Action_Skeleton skeleton)
         {
-            var layer = animator.GetLayerIndex($"{side.GetEnumMemberValue()}_HAND");
-            if (IndexThreshold.Compare(skeleton.indexCurl) && LittleThreshold.Compare(skeleton.pinkyCurl) && MiddleThreshold.Compare(skeleton.middleCurl) && RingThreshold.Compare(skeleton.ringCurl) && ThumbThreshold.Compare(skeleton.thumbCurl))
-            {
-                animator.SetLayerWeight(layer, 1); // FINGER_EMOTES
-                animator.SetBool(AnimationState.GetEnumMemberValue(), true);
-            }
-            else
-            {
-                animator.SetLayerWeight(layer, 0); // FINGER_EMOTES
-                animator.SetBool(AnimationState.GetEnumMemberValue(), false);
-            }
+            return IndexThreshold.Compare(skeleton.indexCurl) && LittleThreshold.Compare(skeleton.pinkyCurl) && MiddleThreshold.Compare(skeleton.middleCurl) && RingThreshold.Compare(skeleton.ringCurl) && ThumbThreshold.Compare(skeleton.thumbCurl);
         }
     }
 }

@@ -86,9 +86,9 @@ namespace SteamVR_Sandbox.Avatar
             if (!_hasAnimationController)
                 return;
 
-            if (Animator.GetCurrentAnimatorStateInfo(_leftLayerIndex).IsName("IDLE"))
+            if (Animator.GetLayerWeight(_leftLayerIndex) < 1)
                 SetFingerCurlsInAnimatorIK(Side.Left);
-            if (Animator.GetCurrentAnimatorStateInfo(_rightLayerIndex).IsName("IDLE"))
+            if (Animator.GetLayerWeight(_rightLayerIndex) < 1)
                 SetFingerCurlsInAnimatorIK(Side.Right);
         }
 
