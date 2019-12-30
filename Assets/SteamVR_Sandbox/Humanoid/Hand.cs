@@ -65,23 +65,27 @@ namespace SteamVR_Sandbox.Humanoid
 
         private Axis _axis;
 
-        // If isReserve is true, it indicates that the axis points along the Y-axis in the global axis.
-        private bool _isReverse;
+        // If isReverseR is true, reverse the axis-based angle calculation.
+        private bool _isReverseR;
+
+        // If iseReverseY is true, it indicates that the axis points along the Y-axis in the global axis.
+        private bool _isReverseY;
 
         [SerializeField]
         public SteamVR_Action_Skeleton Skeleton;
 
+        // Initialization Phase
         public void StoreAxisDirection(Transform transform)
         {
             if (Math.Abs(Vector3.Dot(transform.forward, Vector3.down)) > .99)
             {
                 _axis = Axis.Z;
-                _isReverse = Vector3.Dot(transform.forward, Vector3.down) < 0;
+                _isReverseY = Vector3.Dot(transform.forward, Vector3.down) < 0;
             }
             else if (Math.Abs(Vector3.Dot(transform.right, Vector3.down)) > .99)
             {
                 _axis = Axis.X;
-                _isReverse = Vector3.Dot(transform.right, Vector3.down) < 0;
+                _isReverseY = Vector3.Dot(transform.right, Vector3.down) < 0;
             }
             else
             {
@@ -116,6 +120,12 @@ namespace SteamVR_Sandbox.Humanoid
             }
         }
 
+        public void SetReverseCalcForRadian(bool isReverse)
+        {
+            _isReverseR = isReverse;
+        }
+
+        // Calculation Phase
         public Quaternion CalcFingerCurlByQuaternion(FingerCategory category, FingerJoint joint)
         {
             var stretches = _fingerStretches[category];
@@ -146,6 +156,10 @@ namespace SteamVR_Sandbox.Humanoid
 
             var curl = GetFingerCurl(category);
             var angle = Mathf.Lerp(stretch.Item1.RangeOfMotion.Min, stretch.Item1.RangeOfMotion.Max, curl * stretch.Item3);
+
+            // thumb is not rotate to vertical-axis base, adjust rotation angle.
+            if (category == FingerCategory.Thumb && stretch.Item1.Direction != Vector3.right)
+                return stretch.Item2 * CalcAngleAxis(angle * (_isReverseR ? -1 : 1), stretch.Item1.Direction);
             return stretch.Item2 * CalcAngleAxis(angle, stretch.Item1.Direction); // rotate `angle` based by `axis`
         }
 
@@ -178,10 +192,10 @@ namespace SteamVR_Sandbox.Humanoid
             switch (_axis)
             {
                 case Axis.X:
-                    return Quaternion.AngleAxis(_isReverse ? -angle : angle, Quaternion.Euler(0, 90, 0) * vector);
+                    return Quaternion.AngleAxis(_isReverseY ? -angle : angle, Quaternion.Euler(0, 90, 0) * vector);
 
                 case Axis.Z:
-                    return Quaternion.AngleAxis(_isReverse ? -angle : angle, vector);
+                    return Quaternion.AngleAxis(_isReverseY ? -angle : angle, vector);
 
                 default:
                     return Quaternion.AngleAxis(angle, vector);
