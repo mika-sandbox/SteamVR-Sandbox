@@ -72,7 +72,7 @@ namespace SteamVR_Sandbox.Humanoid
         private bool _isReverseY;
 
         [SerializeField]
-        public SteamVR_Action_Skeleton Skeleton;
+        private SteamVR_Action_Skeleton Skeleton;
 
         // Initialization Phase
         public void StoreAxisDirection(Transform transform)
@@ -126,6 +126,37 @@ namespace SteamVR_Sandbox.Humanoid
         }
 
         // Calculation Phase
+        public float CalcFingerCurlBySingle(FingerCategory category, FingerJoint joint)
+        {
+            var stretches = _fingerStretches[category];
+            var stretch = (default(Stretch), default(Quaternion), default(float));
+
+            switch (category)
+            {
+                case FingerCategory.Thumb:
+                    stretch = GetStretchInformation(Thumb, stretches, joint);
+                    break;
+
+                case FingerCategory.Index:
+                    stretch = GetStretchInformation(Index, stretches, joint);
+                    break;
+
+                case FingerCategory.Middle:
+                    stretch = GetStretchInformation(Middle, stretches, joint);
+                    break;
+
+                case FingerCategory.Ring:
+                    stretch = GetStretchInformation(Ring, stretches, joint);
+                    break;
+
+                case FingerCategory.Little:
+                    stretch = GetStretchInformation(Little, stretches, joint);
+                    break;
+            }
+
+            return Mathf.Lerp(-1f, 1f, GetFingerCurl(category) * stretch.Item3) * -1;
+        }
+
         public Quaternion CalcFingerCurlByQuaternion(FingerCategory category, FingerJoint joint)
         {
             var stretches = _fingerStretches[category];

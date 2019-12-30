@@ -55,6 +55,8 @@ namespace SteamVR_Sandbox.Avatar
         {
             var hand = side == Side.Left ? LeftHand : RightHand;
 
+            hand.SetReverseCalcForRadian(side == Side.Left);
+
             // Index
             hand.StoreStretchTransform(Animator.GetBoneTransform(GetHumanBodyBoneFromString($"{side}IndexProximal")), FingerCategory.Index, FingerJoint.Stretch1);
             hand.StoreStretchTransform(Animator.GetBoneTransform(GetHumanBodyBoneFromString($"{side}IndexIntermediate")), FingerCategory.Index, FingerJoint.Stretch2);
@@ -146,32 +148,31 @@ namespace SteamVR_Sandbox.Avatar
         private void SetFingerCurlsInUpdate(ref HumanPose humanPose, Side side)
         {
             var hand = side == Side.Left ? LeftHand : RightHand;
-            var skeleton = hand.Skeleton;
 
             // Index
-            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Index1Stretched")] = CalcMuscleCurl(skeleton.indexCurl, hand.Index.Stretch1Weight);
-            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Index2Stretched")] = CalcMuscleCurl(skeleton.indexCurl, hand.Index.Stretch2Weight);
-            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Index3Stretched")] = CalcMuscleCurl(skeleton.indexCurl, hand.Index.Stretch3Weight);
+            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Index1Stretched")] = hand.CalcFingerCurlBySingle(FingerCategory.Index, FingerJoint.Stretch1);
+            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Index2Stretched")] = hand.CalcFingerCurlBySingle(FingerCategory.Index, FingerJoint.Stretch2);
+            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Index3Stretched")] = hand.CalcFingerCurlBySingle(FingerCategory.Index, FingerJoint.Stretch3);
 
             // Little
-            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Little1Stretched")] = CalcMuscleCurl(skeleton.pinkyCurl, hand.Little.Stretch1Weight);
-            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Little2Stretched")] = CalcMuscleCurl(skeleton.pinkyCurl, hand.Little.Stretch2Weight);
-            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Little3Stretched")] = CalcMuscleCurl(skeleton.pinkyCurl, hand.Little.Stretch3Weight);
+            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Little1Stretched")] = hand.CalcFingerCurlBySingle(FingerCategory.Little, FingerJoint.Stretch1);
+            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Little2Stretched")] = hand.CalcFingerCurlBySingle(FingerCategory.Little, FingerJoint.Stretch2);
+            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Little3Stretched")] = hand.CalcFingerCurlBySingle(FingerCategory.Little, FingerJoint.Stretch3);
 
             // Middle
-            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Middle1Stretched")] = CalcMuscleCurl(skeleton.middleCurl, hand.Middle.Stretch1Weight);
-            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Middle2Stretched")] = CalcMuscleCurl(skeleton.middleCurl, hand.Middle.Stretch2Weight);
-            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Middle3Stretched")] = CalcMuscleCurl(skeleton.middleCurl, hand.Middle.Stretch3Weight);
+            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Middle1Stretched")] = hand.CalcFingerCurlBySingle(FingerCategory.Middle, FingerJoint.Stretch1);
+            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Middle2Stretched")] = hand.CalcFingerCurlBySingle(FingerCategory.Middle, FingerJoint.Stretch2);
+            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Middle3Stretched")] = hand.CalcFingerCurlBySingle(FingerCategory.Middle, FingerJoint.Stretch3);
 
             // Ring
-            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Ring1Stretched")] = CalcMuscleCurl(skeleton.ringCurl, hand.Ring.Stretch1Weight);
-            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Ring2Stretched")] = CalcMuscleCurl(skeleton.ringCurl, hand.Ring.Stretch2Weight);
-            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Ring3Stretched")] = CalcMuscleCurl(skeleton.ringCurl, hand.Ring.Stretch3Weight);
+            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Ring1Stretched")] = hand.CalcFingerCurlBySingle(FingerCategory.Ring, FingerJoint.Stretch1);
+            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Ring2Stretched")] = hand.CalcFingerCurlBySingle(FingerCategory.Ring, FingerJoint.Stretch2);
+            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Ring3Stretched")] = hand.CalcFingerCurlBySingle(FingerCategory.Ring, FingerJoint.Stretch3);
 
             // Thumb
-            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Thumb1Stretched")] = CalcMuscleCurl(skeleton.thumbCurl, hand.Thumb.Stretch1Weight);
-            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Thumb2Stretched")] = CalcMuscleCurl(skeleton.thumbCurl, hand.Thumb.Stretch2Weight);
-            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Thumb3Stretched")] = CalcMuscleCurl(skeleton.thumbCurl, hand.Thumb.Stretch3Weight);
+            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Thumb1Stretched")] = hand.CalcFingerCurlBySingle(FingerCategory.Thumb, FingerJoint.Stretch1);
+            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Thumb2Stretched")] = hand.CalcFingerCurlBySingle(FingerCategory.Thumb, FingerJoint.Stretch2);
+            humanPose.muscles[(int) GetMuscleNameFromString($"{side}Thumb3Stretched")] = hand.CalcFingerCurlBySingle(FingerCategory.Thumb, FingerJoint.Stretch3);
         }
 
         private static float CalcMuscleCurl(double fingerCurl, double weight)
