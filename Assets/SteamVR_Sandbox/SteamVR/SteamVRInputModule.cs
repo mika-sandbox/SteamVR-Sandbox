@@ -90,6 +90,8 @@ namespace SteamVR_Sandbox.SteamVR
                 else
                 {
                     // drag
+                    source.EventData.pointerPressRaycast = source.EventData.pointerCurrentRaycast;
+                    ExecuteEvents.Execute(source.EventData.pointerDrag, source.EventData, ExecuteEvents.dragHandler);
                     ExecuteEvents.Execute(source.PreviousContactObject, source.EventData, ExecuteEvents.dragHandler);
                 }
 
