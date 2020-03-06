@@ -84,7 +84,6 @@ namespace SteamVR_Sandbox.Avatar
                 _laser.transform.localScale = new Vector3(LaserThickness, LaserThickness, 0f);
                 _laser.transform.localPosition = new Vector3(0f, 0f, 0f);
                 _pointer.SetActive(false);
-                _previousContact = null;
             }
 
             // press downed
@@ -93,6 +92,7 @@ namespace SteamVR_Sandbox.Avatar
             if (nearestHitObject != null)
             {
                 data.position = nearestHitObject.Position;
+                data.button = PointerEventData.InputButton.Left;
 
                 _laser.transform.localScale = new Vector3(LaserThickness * 4f, LaserThickness * 4f, nearestHitObject.Distance);
                 _laser.transform.localPosition = new Vector3(0f, 0f, nearestHitObject.Distance / 2f);
@@ -105,6 +105,19 @@ namespace SteamVR_Sandbox.Avatar
                     if (_previousContact == null)
                     {
                         _previousContact = nearestHitObject.Transform;
+                        ExecuteEvents.Execute(_previousContact.gameObject, data, ExecuteEvents.pointerDownHandler);
+                        ExecuteEvents.Execute(_previousContact.gameObject, data, ExecuteEvents.pointerClickHandler);
+                        ExecuteEvents.Execute(_previousContact.gameObject, data, ExecuteEvents.beginDragHandler);
+                    }
+                    else if (nearestHitObject.Transform != _previousContact)
+                    {
+                        ExecuteEvents.Execute(_previousContact.gameObject, data, ExecuteEvents.endDragHandler);
+                        ExecuteEvents.Execute(_previousContact.gameObject, data, ExecuteEvents.pointerUpHandler);
+                        _previousContact = nearestHitObject.Transform;
+                    }
+                    else
+                    {
+                        ExecuteEvents.Execute(_previousContact.gameObject, data, ExecuteEvents.dragHandler);
                     }
 
                     return;
@@ -114,6 +127,8 @@ namespace SteamVR_Sandbox.Avatar
             if (_previousContact == null)
                 return;
 
+            ExecuteEvents.Execute(_previousContact.gameObject, data, ExecuteEvents.endDragHandler);
+            ExecuteEvents.Execute(_previousContact.gameObject, data, ExecuteEvents.pointerUpHandler);
             _previousContact = null;
         }
 
