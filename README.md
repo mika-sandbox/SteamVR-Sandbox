@@ -20,13 +20,14 @@ Each scene has a new implementation added to implemented in the previous scene (
 For example, `AvatarCalibration` includes `VRMirror` implementations.  
 If you want to try all implementations in this repository, play the last scene.
 
-| Scene Name                      | Description                                                         |
-| ------------------------------- | ------------------------------------------------------------------- |
-| `VRMirror`                      | Mirror in VR World                                                  |
-| `AvatarCalibration`             | Calibrate VR Avatar by Player Height                                |
-| `IndexControllerFingerTracking` | Finger Tracking by Valve Index Controller inputs                    |
-| `FingerTrackingWithAnimation`   | Finger Tracking by Valve Index Controller with Animation Controller |
-| `FingerEmotions`                | Face Emotions using finger pose                                     |
+| Scene Name                          | Description                                                         |
+| ----------------------------------- | ------------------------------------------------------------------- |
+| `001_VRMirror`                      | Mirror in VR World                                                  |
+| `002_AvatarCalibration`             | Calibrate VR Avatar by Player Height                                |
+| `003_IndexControllerFingerTracking` | Finger Tracking by Valve Index Controller inputs                    |
+| `004_FingerTrackingWithAnimation`   | Finger Tracking by Valve Index Controller with Animation Controller |
+| `005_FingerEmotions`                | Face Emotions using finger pose                                     |
+| `006_SteamVRCustomInputModule`      | Implementation of Input Module for SteamVR                          |
 
 
 ## Preparation
