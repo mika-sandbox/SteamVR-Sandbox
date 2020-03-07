@@ -12,6 +12,8 @@ This sandbox repository is moving forward with the goal of creating a VR game as
   - Final IK (required)
   - SteamVR Plugin (required)
   - Vive Stereo Rendering Toolkit (required)
+- Applying patch to SteamVR Input
+  - You must apply [this Pull Request](https://github.com/ValveSoftware/steamvr_unity_plugin/pull/645) to your copy of SteamVR Unity Plugin
 
 
 ## Scenes
@@ -20,14 +22,15 @@ Each scene has a new implementation added to implemented in the previous scene (
 For example, `AvatarCalibration` includes `VRMirror` implementations.  
 If you want to try all implementations in this repository, play the last scene.
 
-| Scene Name                          | Description                                                         |
-| ----------------------------------- | ------------------------------------------------------------------- |
-| `001_VRMirror`                      | Mirror in VR World                                                  |
-| `002_AvatarCalibration`             | Calibrate VR Avatar by Player Height                                |
-| `003_IndexControllerFingerTracking` | Finger Tracking by Valve Index Controller inputs                    |
-| `004_FingerTrackingWithAnimation`   | Finger Tracking by Valve Index Controller with Animation Controller |
-| `005_FingerEmotions`                | Face Emotions using finger pose                                     |
-| `006_SteamVRCustomInputModule`      | Implementation of Input Module for SteamVR                          |
+| Scene Name                          | Description                                                         | Status |
+| ----------------------------------- | ------------------------------------------------------------------- | :----: |
+| `001_VRMirror`                      | Mirror in VR World                                                  |   OK   |
+| `002_AvatarCalibration`             | Calibrate VR Avatar by Player Height                                |   OK   |
+| `003_IndexControllerFingerTracking` | Finger Tracking by Valve Index Controller inputs                    |   OK   |
+| `004_FingerTrackingWithAnimation`   | Finger Tracking by Valve Index Controller with Animation Controller |   OK   |
+| `005_FingerEmotions`                | Face Emotions using finger pose                                     |   OK   |
+| `006_SteamVRCustomInputModule`      | Implementation of Input Module for SteamVR                          |   OK   |
+| `007_FullBodyTracking`              | Full Body Tracking with extra Vive Trackers                         |  WIP   |
 
 
 ## Preparation
