@@ -16,22 +16,19 @@ namespace SteamVR_Sandbox.SteamVR
     {
         public SteamVR_Behaviour_Pose Pose => GetComponent<SteamVR_Behaviour_Pose>();
         public bool IsActive => Pose.isActive && Pose.isValid;
-        public GameObject Target => transform.GetChild(1).gameObject; // 1st model is VIVE Tracker Model
+        public GameObject Target => transform.GetChild(1).gameObject; // 1st GameObject is SteamVR Model Renderer.
 
         // Adjust Target GameObject to the current state is recognized as the state of Quaternion.zero.
         public void Calibrate(VRIK avatar)
         {
             Target.transform.localRotation = Quaternion.identity;
             Target.transform.localPosition = Vector3.zero;
-            
+
             switch (Pose.inputSource)
             {
-                case SteamVR_Input_Sources.Chest:
                 case SteamVR_Input_Sources.Waist:
                 {
-                    // if the chest/waist tracker is in front of the head tracker, adjust it so the x-axis points in front of the avatar.
-                    // otherwise, adjust it so the x-axis points toward the back of the avatar.
-                    // and also, adjust y-axis so it points upwards.
+                    Target.transform.rotation = avatar.references.pelvis.rotation;
                     break;
                 }
 
@@ -46,15 +43,39 @@ namespace SteamVR_Sandbox.SteamVR
                     // XXX: Should I copy the source code of Final IK's VRIK Calibrator such as VMC????
                     // In the foot position, Final IK expects different angles of the Target GameObject depending on the rotation of the last bone.
                     // For example, in the official sample model, the last bone was vertical, but the Shapell was rotated 45 degrees, so the offset value had to be considered.
-                    var lastBone = avatar.references.leftToes != null ? avatar.references.leftToes : avatar.references.leftFoot;
-                    Target.transform.rotation = lastBone.rotation; // match the rotation axis of the last bone and the target GameObject.
+                    var lastBone = avatar.references.leftToes ?? avatar.references.leftFoot;
+
+                    // adjust foot tracker position to last bone's position
+                    Target.transform.position = new Vector3(Target.transform.position.x, lastBone.position.y, Target.transform.position.z);
+
+                    // match the rotation axis of the last bone and the target GameObject.
+                    Target.transform.rotation = lastBone.rotation;
+
+                    // match the target forward towards tracker forward
+                    var footForward = DetectNearestAxis(avatar.references.root.forward, lastBone);
+                    var toRotation = Quaternion.LookRotation(transform.rotation * footForward);
+                    if (Vector3.Dot(Target.transform.rotation * footForward, transform.rotation * footForward) < 0.0f)
+                        footForward = -footForward; // target forward and tracker forward are in opposite directions
+                    var fromRotation = Quaternion.LookRotation(Target.transform.rotation * footForward);
+                    Target.transform.rotation = toRotation * Quaternion.Inverse(fromRotation) * Target.transform.rotation;
+
                     break;
                 }
 
                 case SteamVR_Input_Sources.RightFoot:
                 {
-                    var lastBone = avatar.references.rightToes != null ? avatar.references.rightToes : avatar.references.rightFoot;
+                    var lastBone = avatar.references.rightToes ?? avatar.references.rightFoot;
+
+                    Target.transform.position = new Vector3(Target.transform.position.x, lastBone.position.y, Target.transform.position.z);
                     Target.transform.rotation = lastBone.rotation;
+
+                    var footForward = DetectNearestAxis(avatar.references.root.forward, lastBone);
+                    var toRotation = Quaternion.LookRotation(transform.rotation * footForward);
+                    if (Vector3.Dot(Target.transform.rotation * footForward, transform.rotation * footForward) < 0.0f)
+                        footForward = -footForward;
+                    var fromRotation = Quaternion.LookRotation(Target.transform.rotation * footForward);
+                    Target.transform.rotation = toRotation * Quaternion.Inverse(fromRotation) * Target.transform.rotation;
+
                     break;
                 }
 
