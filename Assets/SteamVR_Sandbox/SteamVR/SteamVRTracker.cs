@@ -41,6 +41,7 @@ namespace SteamVR_Sandbox.SteamVR
                 case SteamVR_Input_Sources.LeftFoot:
                 {
                     // XXX: Should I copy the source code of Final IK's VRIK Calibrator such as VMC????
+                    // TODO: I should consider the case where the trackers are placed at an angle.
                     // In the foot position, Final IK expects different angles of the Target GameObject depending on the rotation of the last bone.
                     // For example, in the official sample model, the last bone was vertical, but the Shapell was rotated 45 degrees, so the offset value had to be considered.
                     var lastBone = avatar.references.leftToes ?? avatar.references.leftFoot;
