@@ -3,6 +3,7 @@ using System.Linq;
 
 using RootMotion.FinalIK;
 
+using SteamVR_Sandbox.SteamVR;
 using SteamVR_Sandbox.UI;
 
 using UnityEngine;
@@ -49,7 +50,7 @@ namespace SteamVR_Sandbox.Avatar
         private NumericUpDown PlayerHeightByInput;
 
         [SerializeField]
-        private List<SteamVR_Behaviour_Pose> Trackers;
+        private List<SteamVRTracker> Trackers;
 
         [SerializeField]
         [Tooltip("VRChat View Position (Camera Position for Avatar)")]
@@ -86,8 +87,8 @@ namespace SteamVR_Sandbox.Avatar
 
         private void Update()
         {
-            if (!_enableCalibrateMode)
-                return;
+            // if (!_enableCalibrateMode)
+            //    return;
 
             if (!InteractUI.GetState(ControllerLeft.inputSource) || !InteractUI.GetState(ControllerRight.inputSource))
                 return;
@@ -97,53 +98,60 @@ namespace SteamVR_Sandbox.Avatar
             // run calibrate
 
             // calibrate with extra trackers (without HMD, controllers)
-            var enabledTrackers = Trackers.Where(w => w.isActive).ToList();
+            var enabledTrackers = Trackers.Where(w => w.IsActive).ToList();
             if (enabledTrackers.Count == 0)
                 return;
+
+            IK.solver.FixTransforms();
 
             // HMD, two controllers, seven trackers
             // trackers assigned to pelvis, left hand, left elbow, right hand, right elbow, left knee, left foot, right knee and right foot
             foreach (var tracker in enabledTrackers)
-                switch (tracker.inputSource)
+            {
+                switch (tracker.Pose.inputSource)
                 {
                     case SteamVR_Input_Sources.Waist:
-                        IK.solver.spine.pelvisTarget = tracker.transform;
+                        IK.solver.spine.pelvisTarget = tracker.Target.transform;
                         IK.solver.spine.pelvisPositionWeight = 1f;
                         IK.solver.spine.pelvisRotationWeight = 1f;
+                        IK.solver.plantFeet = false;
                         break;
 
                     case SteamVR_Input_Sources.LeftFoot:
-                        IK.solver.leftLeg.target = tracker.transform;
+                        IK.solver.leftLeg.target = tracker.Target.transform;
                         IK.solver.leftLeg.positionWeight = 1f;
                         IK.solver.leftLeg.rotationWeight = 1f;
                         break;
 
                     case SteamVR_Input_Sources.RightFoot:
-                        IK.solver.rightLeg.target = tracker.transform;
+                        IK.solver.rightLeg.target = tracker.Target.transform;
                         IK.solver.rightLeg.positionWeight = 1f;
                         IK.solver.rightLeg.rotationWeight = 1f;
                         break;
 
                     case SteamVR_Input_Sources.LeftElbow:
-                        IK.solver.leftArm.bendGoal = tracker.transform;
+                        IK.solver.leftArm.bendGoal = tracker.Target.transform;
                         IK.solver.leftArm.bendGoalWeight = 1f;
                         break;
 
                     case SteamVR_Input_Sources.RightElbow:
-                        IK.solver.rightArm.bendGoal = tracker.transform;
+                        IK.solver.rightArm.bendGoal = tracker.Target.transform;
                         IK.solver.rightArm.bendGoalWeight = 1f;
                         break;
 
                     case SteamVR_Input_Sources.LeftKnee:
-                        IK.solver.leftLeg.bendGoal = tracker.transform;
+                        IK.solver.leftLeg.bendGoal = tracker.Target.transform;
                         IK.solver.leftLeg.bendGoalWeight = 1f;
                         break;
 
                     case SteamVR_Input_Sources.RightKnee:
-                        IK.solver.rightLeg.bendGoal = tracker.transform;
+                        IK.solver.rightLeg.bendGoal = tracker.Target.transform;
                         IK.solver.rightLeg.bendGoalWeight = 1f;
                         break;
                 }
+
+                tracker.Calibrate(IK);
+            }
         }
 
         public void OnAvatarCalibrate()

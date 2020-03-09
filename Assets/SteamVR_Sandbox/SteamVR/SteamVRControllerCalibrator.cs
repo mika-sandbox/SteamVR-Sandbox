@@ -5,9 +5,9 @@ using UnityEngine;
 
 using Valve.VR;
 
-// ReSharper disable once InconsistentNaming
 namespace SteamVR_Sandbox.SteamVR
 {
+    // ReSharper disable once InconsistentNaming
     [AddComponentMenu("Scripts/Mochizuki.VR/SteamVR/SteamVR Controller Calibrator")]
     public class SteamVRControllerCalibrator : MonoBehaviour
     {
