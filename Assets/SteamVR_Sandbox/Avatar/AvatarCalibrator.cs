@@ -126,9 +126,18 @@ namespace SteamVR_Sandbox.Avatar
                 tracker.Calibrate(IK);
             }
 
+            IK.solver.spine.minHeadHeight = 0f;
+
             // see: https://twitter.com/ikko/status/966894056142864385
             if (IK.solver.spine.pelvisTarget && IK.solver.leftLeg.target && IK.solver.rightLeg.target)
+            {
                 IK.gameObject.AddComponent<VRIKRootController>();
+                IK.solver.locomotion.weight = 1f;
+            }
+            else
+            {
+                IK.solver.locomotion.weight = 0f;
+            }
         }
 
         public void OnAvatarCalibrate()
