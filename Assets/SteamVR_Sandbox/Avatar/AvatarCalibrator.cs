@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using RootMotion.FinalIK;
@@ -10,7 +9,6 @@ using SteamVR_Sandbox.UI;
 using UnityEngine;
 
 using Valve.VR;
-using Valve.VR.InteractionSystem;
 
 #pragma warning disable 649
 
@@ -28,6 +26,9 @@ namespace SteamVR_Sandbox.Avatar
         private bool AlwaysShowsTracker = false;
 
         [SerializeField]
+        private GameObject CameraRig;
+
+        [SerializeField]
         private SteamVR_Behaviour_Pose ControllerLeft;
 
         [SerializeField]
@@ -39,7 +40,7 @@ namespace SteamVR_Sandbox.Avatar
 
         // ReSharper disable InconsistentNaming
         [SerializeField]
-        private GameObject HeadTracker;
+        private SteamVRHMDTracker HeadTracker;
 
         // ReSharper disable once FieldCanBeMadeReadOnly.Local
         [SerializeField]
@@ -82,11 +83,11 @@ namespace SteamVR_Sandbox.Avatar
             var avatarHeadPosition = IK.references.head.position;
             var avatarViewPosition = ViewPosition;
 
-            var headTrackerPosition = HeadTracker.transform.localPosition;
+            var headTrackerPosition = HeadTracker.Target.transform.localPosition;
             headTrackerPosition.x -= ViewPosition.x;
             headTrackerPosition.y -= avatarViewPosition.y - avatarHeadPosition.y;
             headTrackerPosition.z -= ViewPosition.z;
-            HeadTracker.transform.localPosition = headTrackerPosition;
+            HeadTracker.Target.transform.localPosition = headTrackerPosition;
 
             var playerHandDistance = PlayerHeight * PlayerHandDistanceByHeight;
             var worldScale = playerHandDistance / _distanceOfAvatarArms;
@@ -105,87 +106,23 @@ namespace SteamVR_Sandbox.Avatar
             _enableCalibrateMode = false;
             HideTrackers();
 
-            // run calibrate
+            IK.solver.FixTransforms();
 
-            IK.solver.spine.headTarget = HeadTracker.transform;
-            IK.solver.spine.positionWeight = 1f;
-            IK.solver.spine.rotationWeight = 1f;
+            var scale = CalibrateAvatarScale();
+
+            HeadTracker.Assign(IK.solver);
+            HeadTracker.Calibrate(IK, ViewPosition * scale);
 
             // calibrate with extra trackers (without HMD, controllers)
-            var enabledTrackers = Trackers.Where(w => w.IsActive).ToList();
-            if (enabledTrackers.Count == 0)
+            var trackers = GetEnabledTrackers();
+            if (trackers.Count == 0)
                 return;
 
             // HMD, two controllers, seven trackers
             // trackers assigned to pelvis, left hand, left elbow, right hand, right elbow, left knee, left foot, right knee and right foot
-            foreach (var tracker in enabledTrackers)
+            foreach (var tracker in trackers)
             {
-                switch (tracker.Pose.inputSource)
-                {
-                    case SteamVR_Input_Sources.LeftHand:
-                        IK.solver.leftArm.target = tracker.Target.transform;
-                        IK.solver.leftArm.positionWeight = 1f;
-                        IK.solver.leftArm.rotationWeight = 1f;
-                        break;
-
-                    case SteamVR_Input_Sources.RightHand:
-                        IK.solver.rightArm.target = tracker.Target.transform;
-                        IK.solver.rightArm.positionWeight = 1f;
-                        IK.solver.rightArm.rotationWeight = 1f;
-                        break;
-
-                    case SteamVR_Input_Sources.Waist:
-                        IK.solver.spine.pelvisTarget = tracker.Target.transform;
-                        IK.solver.spine.pelvisPositionWeight = 1f;
-                        IK.solver.spine.pelvisRotationWeight = 1f;
-                        IK.solver.plantFeet = false;
-                        break;
-
-                    case SteamVR_Input_Sources.LeftFoot:
-                        IK.solver.leftLeg.target = tracker.Target.transform;
-                        IK.solver.leftLeg.positionWeight = 1f;
-                        IK.solver.leftLeg.rotationWeight = 1f;
-                        break;
-
-                    case SteamVR_Input_Sources.RightFoot:
-                        IK.solver.rightLeg.target = tracker.Target.transform;
-                        IK.solver.rightLeg.positionWeight = 1f;
-                        IK.solver.rightLeg.rotationWeight = 1f;
-                        break;
-
-                    case SteamVR_Input_Sources.LeftElbow:
-                        IK.solver.leftArm.bendGoal = tracker.Target.transform;
-                        IK.solver.leftArm.bendGoalWeight = 1f;
-                        break;
-
-                    case SteamVR_Input_Sources.RightElbow:
-                        IK.solver.rightArm.bendGoal = tracker.Target.transform;
-                        IK.solver.rightArm.bendGoalWeight = 1f;
-                        break;
-
-                    case SteamVR_Input_Sources.LeftKnee:
-                        IK.solver.leftLeg.bendGoal = tracker.Target.transform;
-                        IK.solver.leftLeg.bendGoalWeight = 1f;
-                        break;
-
-                    case SteamVR_Input_Sources.RightKnee:
-                        IK.solver.rightLeg.bendGoal = tracker.Target.transform;
-                        IK.solver.rightLeg.bendGoalWeight = 1f;
-                        break;
-
-                    case SteamVR_Input_Sources.LeftShoulder:
-                        break;
-
-                    case SteamVR_Input_Sources.RightShoulder:
-                        break;
-
-                    case SteamVR_Input_Sources.Chest:
-                        break;
-
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-
+                tracker.Assign(IK.solver);
                 tracker.Calibrate(IK);
             }
 
@@ -198,62 +135,53 @@ namespace SteamVR_Sandbox.Avatar
         {
             // Calibrate by Player Height and Arm Length
             _enableCalibrateMode = true;
-            PlayerHeight = PlayerHeightByInput.Value;
 
             // reset all solvers to default
+            ResetPlayer();
             ResetSolvers();
             ShowTrackers();
         }
 
+        private float CalibrateAvatarScale()
+        {
+            PlayerHeight = PlayerHeightByInput.Value / 100f;
+            var scale = PlayerHeight / ViewPosition.y * 0.95f;
+
+            World.transform.localScale = Vector3.one * scale;
+
+            return scale;
+        }
+
+        private void ResetPlayer()
+        {
+            IK.gameObject.transform.position = new Vector3(0, 0, 0);
+            IK.gameObject.transform.rotation = Quaternion.identity;
+            IK.solver.Reset();
+        }
+
         private void ResetSolvers()
         {
-            // spine
-            IK.solver.spine.headTarget = null;
-            IK.solver.spine.positionWeight = 0f;
-            IK.solver.spine.rotationWeight = 0f;
-            IK.solver.spine.pelvisTarget = null;
-            IK.solver.spine.pelvisPositionWeight = 0f;
-            IK.solver.spine.pelvisRotationWeight = 0f;
-            IK.solver.spine.chestGoal = null;
-            IK.solver.spine.chestGoalWeight = 0f;
+            HeadTracker.UnAssign(IK.solver);
 
-            // left arm
-            IK.solver.leftArm.target = null;
-            IK.solver.leftArm.positionWeight = 0f;
-            IK.solver.leftArm.rotationWeight = 0f;
-            IK.solver.leftArm.bendGoal = null;
-            IK.solver.leftArm.bendGoalWeight = 0f;
+            foreach (var tracker in Trackers)
+                tracker.UnAssign(IK.solver);
+        }
 
-            // right arm
-            IK.solver.rightArm.target = null;
-            IK.solver.rightArm.positionWeight = 0f;
-            IK.solver.rightArm.rotationWeight = 0f;
-            IK.solver.rightArm.bendGoal = null;
-            IK.solver.rightArm.bendGoalWeight = 0f;
-
-            // left leg
-            IK.solver.leftLeg.target = null;
-            IK.solver.leftLeg.positionWeight = 0f;
-            IK.solver.leftLeg.rotationWeight = 0f;
-            IK.solver.leftLeg.bendGoal = null;
-            IK.solver.leftLeg.bendGoalWeight = 0f;
-
-            // right leg
-            IK.solver.rightLeg.target = null;
-            IK.solver.rightLeg.positionWeight = 0f;
-            IK.solver.rightLeg.rotationWeight = 0f;
-            IK.solver.rightLeg.bendGoal = null;
-            IK.solver.rightLeg.bendGoalWeight = 0f;
+        private List<SteamVRTracker> GetEnabledTrackers()
+        {
+            return Trackers.Where(w => w.IsActive).ToList();
         }
 
         private void ShowTrackers()
         {
-            Trackers.Where(w => w.IsActive).ForEach(w => w.transform.GetChild(0).gameObject.SetActive(true));
+            foreach (var tracker in GetEnabledTrackers())
+                tracker.Show();
         }
 
         private void HideTrackers()
         {
-            Trackers.Where(w => w.IsActive).ForEach(w => w.transform.GetChild(0).gameObject.SetActive(false));
+            foreach (var tracker in GetEnabledTrackers())
+                tracker.Hide();
         }
     }
 }
